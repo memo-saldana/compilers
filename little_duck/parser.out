@@ -1,0 +1,1256 @@
+Created by PLY (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAM ID SEMICOLON vars bloque
+Rule 2     programa -> PROGRAM ID SEMICOLON bloque
+Rule 3     vars -> VAR vars_a
+Rule 4     vars_a -> vars_b COLON tipo SEMICOLON vars_a
+Rule 5     vars_a -> vars_b COLON tipo SEMICOLON
+Rule 6     vars_b -> ID
+Rule 7     vars_b -> ID COMMA vars_b
+Rule 8     tipo -> INT_TYPE
+Rule 9     tipo -> FLOAT_TYPE
+Rule 10    bloque -> LEFTKEY bloque_a RIGHTKEY
+Rule 11    bloque -> LEFTKEY RIGHTKEY
+Rule 12    bloque_a -> estatuto
+Rule 13    bloque_a -> estatuto bloque_a
+Rule 14    estatuto -> asignacion
+Rule 15    estatuto -> condicion
+Rule 16    estatuto -> escritura
+Rule 17    asignacion -> ID EQUALS expresion SEMICOLON
+Rule 18    condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON
+Rule 19    condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON
+Rule 20    escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON
+Rule 21    escritura_a -> escritura_b
+Rule 22    escritura_a -> escritura_b COMMA escritura_a
+Rule 23    escritura_b -> STRING
+Rule 24    escritura_b -> expresion
+Rule 25    expresion -> exp LESS exp
+Rule 26    expresion -> exp MORE exp
+Rule 27    expresion -> exp NOT exp
+Rule 28    expresion -> exp
+Rule 29    exp -> termino PLUS exp
+Rule 30    exp -> termino MINUS exp
+Rule 31    exp -> termino
+Rule 32    termino -> factor MULT factor
+Rule 33    termino -> factor DIV factor
+Rule 34    termino -> factor
+Rule 35    factor -> LEFTPAR expresion RIGHTPAR
+Rule 36    factor -> PLUS var_cte
+Rule 37    factor -> MINUS var_cte
+Rule 38    factor -> var_cte
+Rule 39    var_cte -> ID
+Rule 40    var_cte -> INT
+Rule 41    var_cte -> STRING
+Rule 42    var_cte -> FLOAT
+
+Terminals, with rules where they appear
+
+COLON                : 4 5
+COMMA                : 7 22
+DIV                  : 33
+ELSE                 : 19
+EQUALS               : 17
+FLOAT                : 42
+FLOAT_TYPE           : 9
+ID                   : 1 2 6 7 17 39
+IF                   : 18 19
+INT                  : 40
+INT_TYPE             : 8
+LEFTKEY              : 10 11
+LEFTPAR              : 18 19 20 35
+LESS                 : 25
+MINUS                : 30 37
+MORE                 : 26
+MULT                 : 32
+NOT                  : 27
+PLUS                 : 29 36
+PRINT                : 20
+PROGRAM              : 1 2
+RIGHTKEY             : 10 11
+RIGHTPAR             : 18 19 20 35
+SEMICOLON            : 1 2 4 5 17 18 19 20
+STRING               : 23 41
+VAR                  : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 14
+bloque               : 1 2 18 19 19
+bloque_a             : 10 13
+condicion            : 15
+escritura            : 16
+escritura_a          : 20 22
+escritura_b          : 21 22
+estatuto             : 12 13
+exp                  : 25 25 26 26 27 27 28 29 30
+expresion            : 17 18 19 24 35
+factor               : 32 32 33 33 34
+programa             : 0
+termino              : 29 30 31
+tipo                 : 4 5
+var_cte              : 36 37 38
+vars                 : 1
+vars_a               : 3 4
+vars_b               : 4 5 7
+
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAM ID SEMICOLON vars bloque
+    (2) programa -> . PROGRAM ID SEMICOLON bloque
+
+    PROGRAM         shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAM . ID SEMICOLON vars bloque
+    (2) programa -> PROGRAM . ID SEMICOLON bloque
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAM ID . SEMICOLON vars bloque
+    (2) programa -> PROGRAM ID . SEMICOLON bloque
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAM ID SEMICOLON . vars bloque
+    (2) programa -> PROGRAM ID SEMICOLON . bloque
+    (3) vars -> . VAR vars_a
+    (10) bloque -> . LEFTKEY bloque_a RIGHTKEY
+    (11) bloque -> . LEFTKEY RIGHTKEY
+
+    VAR             shift and go to state 7
+    LEFTKEY         shift and go to state 8
+
+    vars                           shift and go to state 5
+    bloque                         shift and go to state 6
+
+state 5
+
+    (1) programa -> PROGRAM ID SEMICOLON vars . bloque
+    (10) bloque -> . LEFTKEY bloque_a RIGHTKEY
+    (11) bloque -> . LEFTKEY RIGHTKEY
+
+    LEFTKEY         shift and go to state 8
+
+    bloque                         shift and go to state 9
+
+state 6
+
+    (2) programa -> PROGRAM ID SEMICOLON bloque .
+
+    $end            reduce using rule 2 (programa -> PROGRAM ID SEMICOLON bloque .)
+
+
+state 7
+
+    (3) vars -> VAR . vars_a
+    (4) vars_a -> . vars_b COLON tipo SEMICOLON vars_a
+    (5) vars_a -> . vars_b COLON tipo SEMICOLON
+    (6) vars_b -> . ID
+    (7) vars_b -> . ID COMMA vars_b
+
+    ID              shift and go to state 12
+
+    vars_a                         shift and go to state 10
+    vars_b                         shift and go to state 11
+
+state 8
+
+    (10) bloque -> LEFTKEY . bloque_a RIGHTKEY
+    (11) bloque -> LEFTKEY . RIGHTKEY
+    (12) bloque_a -> . estatuto
+    (13) bloque_a -> . estatuto bloque_a
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (17) asignacion -> . ID EQUALS expresion SEMICOLON
+    (18) condicion -> . IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON
+    (19) condicion -> . IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON
+    (20) escritura -> . PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON
+
+    RIGHTKEY        shift and go to state 14
+    ID              shift and go to state 19
+    IF              shift and go to state 20
+    PRINT           shift and go to state 21
+
+    bloque_a                       shift and go to state 13
+    estatuto                       shift and go to state 15
+    asignacion                     shift and go to state 16
+    condicion                      shift and go to state 17
+    escritura                      shift and go to state 18
+
+state 9
+
+    (1) programa -> PROGRAM ID SEMICOLON vars bloque .
+
+    $end            reduce using rule 1 (programa -> PROGRAM ID SEMICOLON vars bloque .)
+
+
+state 10
+
+    (3) vars -> VAR vars_a .
+
+    LEFTKEY         reduce using rule 3 (vars -> VAR vars_a .)
+
+
+state 11
+
+    (4) vars_a -> vars_b . COLON tipo SEMICOLON vars_a
+    (5) vars_a -> vars_b . COLON tipo SEMICOLON
+
+    COLON           shift and go to state 22
+
+
+state 12
+
+    (6) vars_b -> ID .
+    (7) vars_b -> ID . COMMA vars_b
+
+    COLON           reduce using rule 6 (vars_b -> ID .)
+    COMMA           shift and go to state 23
+
+
+state 13
+
+    (10) bloque -> LEFTKEY bloque_a . RIGHTKEY
+
+    RIGHTKEY        shift and go to state 24
+
+
+state 14
+
+    (11) bloque -> LEFTKEY RIGHTKEY .
+
+    $end            reduce using rule 11 (bloque -> LEFTKEY RIGHTKEY .)
+    SEMICOLON       reduce using rule 11 (bloque -> LEFTKEY RIGHTKEY .)
+    ELSE            reduce using rule 11 (bloque -> LEFTKEY RIGHTKEY .)
+
+
+state 15
+
+    (12) bloque_a -> estatuto .
+    (13) bloque_a -> estatuto . bloque_a
+    (12) bloque_a -> . estatuto
+    (13) bloque_a -> . estatuto bloque_a
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (17) asignacion -> . ID EQUALS expresion SEMICOLON
+    (18) condicion -> . IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON
+    (19) condicion -> . IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON
+    (20) escritura -> . PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON
+
+    RIGHTKEY        reduce using rule 12 (bloque_a -> estatuto .)
+    ID              shift and go to state 19
+    IF              shift and go to state 20
+    PRINT           shift and go to state 21
+
+    estatuto                       shift and go to state 15
+    bloque_a                       shift and go to state 25
+    asignacion                     shift and go to state 16
+    condicion                      shift and go to state 17
+    escritura                      shift and go to state 18
+
+state 16
+
+    (14) estatuto -> asignacion .
+
+    ID              reduce using rule 14 (estatuto -> asignacion .)
+    IF              reduce using rule 14 (estatuto -> asignacion .)
+    PRINT           reduce using rule 14 (estatuto -> asignacion .)
+    RIGHTKEY        reduce using rule 14 (estatuto -> asignacion .)
+
+
+state 17
+
+    (15) estatuto -> condicion .
+
+    ID              reduce using rule 15 (estatuto -> condicion .)
+    IF              reduce using rule 15 (estatuto -> condicion .)
+    PRINT           reduce using rule 15 (estatuto -> condicion .)
+    RIGHTKEY        reduce using rule 15 (estatuto -> condicion .)
+
+
+state 18
+
+    (16) estatuto -> escritura .
+
+    ID              reduce using rule 16 (estatuto -> escritura .)
+    IF              reduce using rule 16 (estatuto -> escritura .)
+    PRINT           reduce using rule 16 (estatuto -> escritura .)
+    RIGHTKEY        reduce using rule 16 (estatuto -> escritura .)
+
+
+state 19
+
+    (17) asignacion -> ID . EQUALS expresion SEMICOLON
+
+    EQUALS          shift and go to state 26
+
+
+state 20
+
+    (18) condicion -> IF . LEFTPAR expresion RIGHTPAR bloque SEMICOLON
+    (19) condicion -> IF . LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON
+
+    LEFTPAR         shift and go to state 27
+
+
+state 21
+
+    (20) escritura -> PRINT . LEFTPAR escritura_a RIGHTPAR SEMICOLON
+
+    LEFTPAR         shift and go to state 28
+
+
+state 22
+
+    (4) vars_a -> vars_b COLON . tipo SEMICOLON vars_a
+    (5) vars_a -> vars_b COLON . tipo SEMICOLON
+    (8) tipo -> . INT_TYPE
+    (9) tipo -> . FLOAT_TYPE
+
+    INT_TYPE        shift and go to state 30
+    FLOAT_TYPE      shift and go to state 31
+
+    tipo                           shift and go to state 29
+
+state 23
+
+    (7) vars_b -> ID COMMA . vars_b
+    (6) vars_b -> . ID
+    (7) vars_b -> . ID COMMA vars_b
+
+    ID              shift and go to state 12
+
+    vars_b                         shift and go to state 32
+
+state 24
+
+    (10) bloque -> LEFTKEY bloque_a RIGHTKEY .
+
+    $end            reduce using rule 10 (bloque -> LEFTKEY bloque_a RIGHTKEY .)
+    SEMICOLON       reduce using rule 10 (bloque -> LEFTKEY bloque_a RIGHTKEY .)
+    ELSE            reduce using rule 10 (bloque -> LEFTKEY bloque_a RIGHTKEY .)
+
+
+state 25
+
+    (13) bloque_a -> estatuto bloque_a .
+
+    RIGHTKEY        reduce using rule 13 (bloque_a -> estatuto bloque_a .)
+
+
+state 26
+
+    (17) asignacion -> ID EQUALS . expresion SEMICOLON
+    (25) expresion -> . exp LESS exp
+    (26) expresion -> . exp MORE exp
+    (27) expresion -> . exp NOT exp
+    (28) expresion -> . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    expresion                      shift and go to state 34
+    exp                            shift and go to state 35
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 27
+
+    (18) condicion -> IF LEFTPAR . expresion RIGHTPAR bloque SEMICOLON
+    (19) condicion -> IF LEFTPAR . expresion RIGHTPAR bloque ELSE bloque SEMICOLON
+    (25) expresion -> . exp LESS exp
+    (26) expresion -> . exp MORE exp
+    (27) expresion -> . exp NOT exp
+    (28) expresion -> . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    expresion                      shift and go to state 45
+    exp                            shift and go to state 35
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 28
+
+    (20) escritura -> PRINT LEFTPAR . escritura_a RIGHTPAR SEMICOLON
+    (21) escritura_a -> . escritura_b
+    (22) escritura_a -> . escritura_b COMMA escritura_a
+    (23) escritura_b -> . STRING
+    (24) escritura_b -> . expresion
+    (25) expresion -> . exp LESS exp
+    (26) expresion -> . exp MORE exp
+    (27) expresion -> . exp NOT exp
+    (28) expresion -> . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    STRING          shift and go to state 48
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    FLOAT           shift and go to state 44
+
+    escritura_a                    shift and go to state 46
+    escritura_b                    shift and go to state 47
+    expresion                      shift and go to state 49
+    exp                            shift and go to state 35
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 29
+
+    (4) vars_a -> vars_b COLON tipo . SEMICOLON vars_a
+    (5) vars_a -> vars_b COLON tipo . SEMICOLON
+
+    SEMICOLON       shift and go to state 50
+
+
+state 30
+
+    (8) tipo -> INT_TYPE .
+
+    SEMICOLON       reduce using rule 8 (tipo -> INT_TYPE .)
+
+
+state 31
+
+    (9) tipo -> FLOAT_TYPE .
+
+    SEMICOLON       reduce using rule 9 (tipo -> FLOAT_TYPE .)
+
+
+state 32
+
+    (7) vars_b -> ID COMMA vars_b .
+
+    COLON           reduce using rule 7 (vars_b -> ID COMMA vars_b .)
+
+
+state 33
+
+    (39) var_cte -> ID .
+
+    MULT            reduce using rule 39 (var_cte -> ID .)
+    DIV             reduce using rule 39 (var_cte -> ID .)
+    PLUS            reduce using rule 39 (var_cte -> ID .)
+    MINUS           reduce using rule 39 (var_cte -> ID .)
+    LESS            reduce using rule 39 (var_cte -> ID .)
+    MORE            reduce using rule 39 (var_cte -> ID .)
+    NOT             reduce using rule 39 (var_cte -> ID .)
+    SEMICOLON       reduce using rule 39 (var_cte -> ID .)
+    RIGHTPAR        reduce using rule 39 (var_cte -> ID .)
+    COMMA           reduce using rule 39 (var_cte -> ID .)
+
+
+state 34
+
+    (17) asignacion -> ID EQUALS expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 51
+
+
+state 35
+
+    (25) expresion -> exp . LESS exp
+    (26) expresion -> exp . MORE exp
+    (27) expresion -> exp . NOT exp
+    (28) expresion -> exp .
+
+    LESS            shift and go to state 52
+    MORE            shift and go to state 53
+    NOT             shift and go to state 54
+    SEMICOLON       reduce using rule 28 (expresion -> exp .)
+    RIGHTPAR        reduce using rule 28 (expresion -> exp .)
+    COMMA           reduce using rule 28 (expresion -> exp .)
+
+
+state 36
+
+    (29) exp -> termino . PLUS exp
+    (30) exp -> termino . MINUS exp
+    (31) exp -> termino .
+
+    PLUS            shift and go to state 55
+    MINUS           shift and go to state 56
+    LESS            reduce using rule 31 (exp -> termino .)
+    MORE            reduce using rule 31 (exp -> termino .)
+    NOT             reduce using rule 31 (exp -> termino .)
+    SEMICOLON       reduce using rule 31 (exp -> termino .)
+    RIGHTPAR        reduce using rule 31 (exp -> termino .)
+    COMMA           reduce using rule 31 (exp -> termino .)
+
+
+state 37
+
+    (36) factor -> PLUS . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    var_cte                        shift and go to state 57
+
+state 38
+
+    (37) factor -> MINUS . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    var_cte                        shift and go to state 58
+
+state 39
+
+    (32) termino -> factor . MULT factor
+    (33) termino -> factor . DIV factor
+    (34) termino -> factor .
+
+    MULT            shift and go to state 59
+    DIV             shift and go to state 60
+    PLUS            reduce using rule 34 (termino -> factor .)
+    MINUS           reduce using rule 34 (termino -> factor .)
+    LESS            reduce using rule 34 (termino -> factor .)
+    MORE            reduce using rule 34 (termino -> factor .)
+    NOT             reduce using rule 34 (termino -> factor .)
+    SEMICOLON       reduce using rule 34 (termino -> factor .)
+    RIGHTPAR        reduce using rule 34 (termino -> factor .)
+    COMMA           reduce using rule 34 (termino -> factor .)
+
+
+state 40
+
+    (35) factor -> LEFTPAR . expresion RIGHTPAR
+    (25) expresion -> . exp LESS exp
+    (26) expresion -> . exp MORE exp
+    (27) expresion -> . exp NOT exp
+    (28) expresion -> . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    expresion                      shift and go to state 61
+    exp                            shift and go to state 35
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 41
+
+    (38) factor -> var_cte .
+
+    MULT            reduce using rule 38 (factor -> var_cte .)
+    DIV             reduce using rule 38 (factor -> var_cte .)
+    PLUS            reduce using rule 38 (factor -> var_cte .)
+    MINUS           reduce using rule 38 (factor -> var_cte .)
+    LESS            reduce using rule 38 (factor -> var_cte .)
+    MORE            reduce using rule 38 (factor -> var_cte .)
+    NOT             reduce using rule 38 (factor -> var_cte .)
+    SEMICOLON       reduce using rule 38 (factor -> var_cte .)
+    RIGHTPAR        reduce using rule 38 (factor -> var_cte .)
+    COMMA           reduce using rule 38 (factor -> var_cte .)
+
+
+state 42
+
+    (40) var_cte -> INT .
+
+    MULT            reduce using rule 40 (var_cte -> INT .)
+    DIV             reduce using rule 40 (var_cte -> INT .)
+    PLUS            reduce using rule 40 (var_cte -> INT .)
+    MINUS           reduce using rule 40 (var_cte -> INT .)
+    LESS            reduce using rule 40 (var_cte -> INT .)
+    MORE            reduce using rule 40 (var_cte -> INT .)
+    NOT             reduce using rule 40 (var_cte -> INT .)
+    SEMICOLON       reduce using rule 40 (var_cte -> INT .)
+    RIGHTPAR        reduce using rule 40 (var_cte -> INT .)
+    COMMA           reduce using rule 40 (var_cte -> INT .)
+
+
+state 43
+
+    (41) var_cte -> STRING .
+
+    MULT            reduce using rule 41 (var_cte -> STRING .)
+    DIV             reduce using rule 41 (var_cte -> STRING .)
+    PLUS            reduce using rule 41 (var_cte -> STRING .)
+    MINUS           reduce using rule 41 (var_cte -> STRING .)
+    LESS            reduce using rule 41 (var_cte -> STRING .)
+    MORE            reduce using rule 41 (var_cte -> STRING .)
+    NOT             reduce using rule 41 (var_cte -> STRING .)
+    SEMICOLON       reduce using rule 41 (var_cte -> STRING .)
+    RIGHTPAR        reduce using rule 41 (var_cte -> STRING .)
+    COMMA           reduce using rule 41 (var_cte -> STRING .)
+
+
+state 44
+
+    (42) var_cte -> FLOAT .
+
+    MULT            reduce using rule 42 (var_cte -> FLOAT .)
+    DIV             reduce using rule 42 (var_cte -> FLOAT .)
+    PLUS            reduce using rule 42 (var_cte -> FLOAT .)
+    MINUS           reduce using rule 42 (var_cte -> FLOAT .)
+    LESS            reduce using rule 42 (var_cte -> FLOAT .)
+    MORE            reduce using rule 42 (var_cte -> FLOAT .)
+    NOT             reduce using rule 42 (var_cte -> FLOAT .)
+    SEMICOLON       reduce using rule 42 (var_cte -> FLOAT .)
+    RIGHTPAR        reduce using rule 42 (var_cte -> FLOAT .)
+    COMMA           reduce using rule 42 (var_cte -> FLOAT .)
+
+
+state 45
+
+    (18) condicion -> IF LEFTPAR expresion . RIGHTPAR bloque SEMICOLON
+    (19) condicion -> IF LEFTPAR expresion . RIGHTPAR bloque ELSE bloque SEMICOLON
+
+    RIGHTPAR        shift and go to state 62
+
+
+state 46
+
+    (20) escritura -> PRINT LEFTPAR escritura_a . RIGHTPAR SEMICOLON
+
+    RIGHTPAR        shift and go to state 63
+
+
+state 47
+
+    (21) escritura_a -> escritura_b .
+    (22) escritura_a -> escritura_b . COMMA escritura_a
+
+    RIGHTPAR        reduce using rule 21 (escritura_a -> escritura_b .)
+    COMMA           shift and go to state 64
+
+
+state 48
+
+    (23) escritura_b -> STRING .
+    (41) var_cte -> STRING .
+
+  ! reduce/reduce conflict for COMMA resolved using rule 23 (escritura_b -> STRING .)
+  ! reduce/reduce conflict for RIGHTPAR resolved using rule 23 (escritura_b -> STRING .)
+    COMMA           reduce using rule 23 (escritura_b -> STRING .)
+    RIGHTPAR        reduce using rule 23 (escritura_b -> STRING .)
+    MULT            reduce using rule 41 (var_cte -> STRING .)
+    DIV             reduce using rule 41 (var_cte -> STRING .)
+    PLUS            reduce using rule 41 (var_cte -> STRING .)
+    MINUS           reduce using rule 41 (var_cte -> STRING .)
+    LESS            reduce using rule 41 (var_cte -> STRING .)
+    MORE            reduce using rule 41 (var_cte -> STRING .)
+    NOT             reduce using rule 41 (var_cte -> STRING .)
+
+  ! COMMA           [ reduce using rule 41 (var_cte -> STRING .) ]
+  ! RIGHTPAR        [ reduce using rule 41 (var_cte -> STRING .) ]
+
+
+state 49
+
+    (24) escritura_b -> expresion .
+
+    COMMA           reduce using rule 24 (escritura_b -> expresion .)
+    RIGHTPAR        reduce using rule 24 (escritura_b -> expresion .)
+
+
+state 50
+
+    (4) vars_a -> vars_b COLON tipo SEMICOLON . vars_a
+    (5) vars_a -> vars_b COLON tipo SEMICOLON .
+    (4) vars_a -> . vars_b COLON tipo SEMICOLON vars_a
+    (5) vars_a -> . vars_b COLON tipo SEMICOLON
+    (6) vars_b -> . ID
+    (7) vars_b -> . ID COMMA vars_b
+
+    LEFTKEY         reduce using rule 5 (vars_a -> vars_b COLON tipo SEMICOLON .)
+    ID              shift and go to state 12
+
+    vars_b                         shift and go to state 11
+    vars_a                         shift and go to state 65
+
+state 51
+
+    (17) asignacion -> ID EQUALS expresion SEMICOLON .
+
+    ID              reduce using rule 17 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    IF              reduce using rule 17 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    PRINT           reduce using rule 17 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    RIGHTKEY        reduce using rule 17 (asignacion -> ID EQUALS expresion SEMICOLON .)
+
+
+state 52
+
+    (25) expresion -> exp LESS . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    exp                            shift and go to state 66
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 53
+
+    (26) expresion -> exp MORE . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    exp                            shift and go to state 67
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 54
+
+    (27) expresion -> exp NOT . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    exp                            shift and go to state 68
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 55
+
+    (29) exp -> termino PLUS . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    termino                        shift and go to state 36
+    exp                            shift and go to state 69
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 56
+
+    (30) exp -> termino MINUS . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    termino                        shift and go to state 36
+    exp                            shift and go to state 70
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 57
+
+    (36) factor -> PLUS var_cte .
+
+    MULT            reduce using rule 36 (factor -> PLUS var_cte .)
+    DIV             reduce using rule 36 (factor -> PLUS var_cte .)
+    PLUS            reduce using rule 36 (factor -> PLUS var_cte .)
+    MINUS           reduce using rule 36 (factor -> PLUS var_cte .)
+    LESS            reduce using rule 36 (factor -> PLUS var_cte .)
+    MORE            reduce using rule 36 (factor -> PLUS var_cte .)
+    NOT             reduce using rule 36 (factor -> PLUS var_cte .)
+    SEMICOLON       reduce using rule 36 (factor -> PLUS var_cte .)
+    RIGHTPAR        reduce using rule 36 (factor -> PLUS var_cte .)
+    COMMA           reduce using rule 36 (factor -> PLUS var_cte .)
+
+
+state 58
+
+    (37) factor -> MINUS var_cte .
+
+    MULT            reduce using rule 37 (factor -> MINUS var_cte .)
+    DIV             reduce using rule 37 (factor -> MINUS var_cte .)
+    PLUS            reduce using rule 37 (factor -> MINUS var_cte .)
+    MINUS           reduce using rule 37 (factor -> MINUS var_cte .)
+    LESS            reduce using rule 37 (factor -> MINUS var_cte .)
+    MORE            reduce using rule 37 (factor -> MINUS var_cte .)
+    NOT             reduce using rule 37 (factor -> MINUS var_cte .)
+    SEMICOLON       reduce using rule 37 (factor -> MINUS var_cte .)
+    RIGHTPAR        reduce using rule 37 (factor -> MINUS var_cte .)
+    COMMA           reduce using rule 37 (factor -> MINUS var_cte .)
+
+
+state 59
+
+    (32) termino -> factor MULT . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    factor                         shift and go to state 71
+    var_cte                        shift and go to state 41
+
+state 60
+
+    (33) termino -> factor DIV . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    STRING          shift and go to state 43
+    FLOAT           shift and go to state 44
+
+    factor                         shift and go to state 72
+    var_cte                        shift and go to state 41
+
+state 61
+
+    (35) factor -> LEFTPAR expresion . RIGHTPAR
+
+    RIGHTPAR        shift and go to state 73
+
+
+state 62
+
+    (18) condicion -> IF LEFTPAR expresion RIGHTPAR . bloque SEMICOLON
+    (19) condicion -> IF LEFTPAR expresion RIGHTPAR . bloque ELSE bloque SEMICOLON
+    (10) bloque -> . LEFTKEY bloque_a RIGHTKEY
+    (11) bloque -> . LEFTKEY RIGHTKEY
+
+    LEFTKEY         shift and go to state 8
+
+    bloque                         shift and go to state 74
+
+state 63
+
+    (20) escritura -> PRINT LEFTPAR escritura_a RIGHTPAR . SEMICOLON
+
+    SEMICOLON       shift and go to state 75
+
+
+state 64
+
+    (22) escritura_a -> escritura_b COMMA . escritura_a
+    (21) escritura_a -> . escritura_b
+    (22) escritura_a -> . escritura_b COMMA escritura_a
+    (23) escritura_b -> . STRING
+    (24) escritura_b -> . expresion
+    (25) expresion -> . exp LESS exp
+    (26) expresion -> . exp MORE exp
+    (27) expresion -> . exp NOT exp
+    (28) expresion -> . exp
+    (29) exp -> . termino PLUS exp
+    (30) exp -> . termino MINUS exp
+    (31) exp -> . termino
+    (32) termino -> . factor MULT factor
+    (33) termino -> . factor DIV factor
+    (34) termino -> . factor
+    (35) factor -> . LEFTPAR expresion RIGHTPAR
+    (36) factor -> . PLUS var_cte
+    (37) factor -> . MINUS var_cte
+    (38) factor -> . var_cte
+    (39) var_cte -> . ID
+    (40) var_cte -> . INT
+    (41) var_cte -> . STRING
+    (42) var_cte -> . FLOAT
+
+    STRING          shift and go to state 48
+    LEFTPAR         shift and go to state 40
+    PLUS            shift and go to state 37
+    MINUS           shift and go to state 38
+    ID              shift and go to state 33
+    INT             shift and go to state 42
+    FLOAT           shift and go to state 44
+
+    escritura_b                    shift and go to state 47
+    escritura_a                    shift and go to state 76
+    expresion                      shift and go to state 49
+    exp                            shift and go to state 35
+    termino                        shift and go to state 36
+    factor                         shift and go to state 39
+    var_cte                        shift and go to state 41
+
+state 65
+
+    (4) vars_a -> vars_b COLON tipo SEMICOLON vars_a .
+
+    LEFTKEY         reduce using rule 4 (vars_a -> vars_b COLON tipo SEMICOLON vars_a .)
+
+
+state 66
+
+    (25) expresion -> exp LESS exp .
+
+    SEMICOLON       reduce using rule 25 (expresion -> exp LESS exp .)
+    RIGHTPAR        reduce using rule 25 (expresion -> exp LESS exp .)
+    COMMA           reduce using rule 25 (expresion -> exp LESS exp .)
+
+
+state 67
+
+    (26) expresion -> exp MORE exp .
+
+    SEMICOLON       reduce using rule 26 (expresion -> exp MORE exp .)
+    RIGHTPAR        reduce using rule 26 (expresion -> exp MORE exp .)
+    COMMA           reduce using rule 26 (expresion -> exp MORE exp .)
+
+
+state 68
+
+    (27) expresion -> exp NOT exp .
+
+    SEMICOLON       reduce using rule 27 (expresion -> exp NOT exp .)
+    RIGHTPAR        reduce using rule 27 (expresion -> exp NOT exp .)
+    COMMA           reduce using rule 27 (expresion -> exp NOT exp .)
+
+
+state 69
+
+    (29) exp -> termino PLUS exp .
+
+    LESS            reduce using rule 29 (exp -> termino PLUS exp .)
+    MORE            reduce using rule 29 (exp -> termino PLUS exp .)
+    NOT             reduce using rule 29 (exp -> termino PLUS exp .)
+    SEMICOLON       reduce using rule 29 (exp -> termino PLUS exp .)
+    RIGHTPAR        reduce using rule 29 (exp -> termino PLUS exp .)
+    COMMA           reduce using rule 29 (exp -> termino PLUS exp .)
+
+
+state 70
+
+    (30) exp -> termino MINUS exp .
+
+    LESS            reduce using rule 30 (exp -> termino MINUS exp .)
+    MORE            reduce using rule 30 (exp -> termino MINUS exp .)
+    NOT             reduce using rule 30 (exp -> termino MINUS exp .)
+    SEMICOLON       reduce using rule 30 (exp -> termino MINUS exp .)
+    RIGHTPAR        reduce using rule 30 (exp -> termino MINUS exp .)
+    COMMA           reduce using rule 30 (exp -> termino MINUS exp .)
+
+
+state 71
+
+    (32) termino -> factor MULT factor .
+
+    PLUS            reduce using rule 32 (termino -> factor MULT factor .)
+    MINUS           reduce using rule 32 (termino -> factor MULT factor .)
+    LESS            reduce using rule 32 (termino -> factor MULT factor .)
+    MORE            reduce using rule 32 (termino -> factor MULT factor .)
+    NOT             reduce using rule 32 (termino -> factor MULT factor .)
+    SEMICOLON       reduce using rule 32 (termino -> factor MULT factor .)
+    RIGHTPAR        reduce using rule 32 (termino -> factor MULT factor .)
+    COMMA           reduce using rule 32 (termino -> factor MULT factor .)
+
+
+state 72
+
+    (33) termino -> factor DIV factor .
+
+    PLUS            reduce using rule 33 (termino -> factor DIV factor .)
+    MINUS           reduce using rule 33 (termino -> factor DIV factor .)
+    LESS            reduce using rule 33 (termino -> factor DIV factor .)
+    MORE            reduce using rule 33 (termino -> factor DIV factor .)
+    NOT             reduce using rule 33 (termino -> factor DIV factor .)
+    SEMICOLON       reduce using rule 33 (termino -> factor DIV factor .)
+    RIGHTPAR        reduce using rule 33 (termino -> factor DIV factor .)
+    COMMA           reduce using rule 33 (termino -> factor DIV factor .)
+
+
+state 73
+
+    (35) factor -> LEFTPAR expresion RIGHTPAR .
+
+    MULT            reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    DIV             reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    PLUS            reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    MINUS           reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    LESS            reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    MORE            reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    NOT             reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    SEMICOLON       reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    RIGHTPAR        reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+    COMMA           reduce using rule 35 (factor -> LEFTPAR expresion RIGHTPAR .)
+
+
+state 74
+
+    (18) condicion -> IF LEFTPAR expresion RIGHTPAR bloque . SEMICOLON
+    (19) condicion -> IF LEFTPAR expresion RIGHTPAR bloque . ELSE bloque SEMICOLON
+
+    SEMICOLON       shift and go to state 77
+    ELSE            shift and go to state 78
+
+
+state 75
+
+    (20) escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON .
+
+    ID              reduce using rule 20 (escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON .)
+    IF              reduce using rule 20 (escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON .)
+    PRINT           reduce using rule 20 (escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON .)
+    RIGHTKEY        reduce using rule 20 (escritura -> PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON .)
+
+
+state 76
+
+    (22) escritura_a -> escritura_b COMMA escritura_a .
+
+    RIGHTPAR        reduce using rule 22 (escritura_a -> escritura_b COMMA escritura_a .)
+
+
+state 77
+
+    (18) condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON .
+
+    ID              reduce using rule 18 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON .)
+    IF              reduce using rule 18 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON .)
+    PRINT           reduce using rule 18 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON .)
+    RIGHTKEY        reduce using rule 18 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON .)
+
+
+state 78
+
+    (19) condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE . bloque SEMICOLON
+    (10) bloque -> . LEFTKEY bloque_a RIGHTKEY
+    (11) bloque -> . LEFTKEY RIGHTKEY
+
+    LEFTKEY         shift and go to state 8
+
+    bloque                         shift and go to state 79
+
+state 79
+
+    (19) condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque . SEMICOLON
+
+    SEMICOLON       shift and go to state 80
+
+
+state 80
+
+    (19) condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON .
+
+    ID              reduce using rule 19 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON .)
+    IF              reduce using rule 19 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON .)
+    PRINT           reduce using rule 19 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON .)
+    RIGHTKEY        reduce using rule 19 (condicion -> IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 48 resolved using rule (escritura_b -> STRING)
+WARNING: rejected rule (var_cte -> STRING) in state 48

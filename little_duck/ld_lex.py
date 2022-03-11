@@ -6,9 +6,8 @@ tokens = (
   'FLOAT', 'FLOAT_TYPE', 'LEFTKEY', 
   'RIGHTKEY', 'EQUALS', 'IF', 'ELSE',
   'PRINT', 'LEFTPAR', 'RIGHTPAR',
-  'STRING', 'TERM', 
+  'STRING', 'LESS', 'MORE', 'NOT',
   'PLUS', 'MINUS', 'DIV', 'MULT',
-  'LESS', 'EXP', 'MORE', 'NOT',
 )
 
 reserved = {
@@ -23,17 +22,17 @@ reserved = {
 
 t_LESS = r'\<'
 t_NOT = r'\<\>'
-t_GREATER = r'\>'
+t_MORE = r'\>'
 t_PLUS = r'\+'
 t_MINUS = r'\-'
 t_DIV = r'\/'
-t_MULTY = r'\*'
+t_MULT = r'\*'
 t_LEFTPAR = r'\('
 t_RIGHTPAR = r'\)'
 t_LEFTKEY = r'\{'
 t_RIGHTKEY = r'\}'
 t_EQUALS  = r'\='
-t_SEMCOLON = r';'
+t_SEMICOLON = r';'
 t_COLON = r':'
 t_COMMA = r','
 

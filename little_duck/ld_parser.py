@@ -1,9 +1,9 @@
 import ply.yacc as yacc
-from ld_lex import lexer
+from ld_lex import lexer, tokens
 
-def p_programa(p): 
+def p_programa(p):
   ''' programa : PROGRAM ID SEMICOLON vars bloque
-               | PROGRAM ID SEMMICOLON bloque'''
+               | PROGRAM ID SEMICOLON bloque'''
 
 def p_vars(p):
   ''' vars : VAR vars_a'''
@@ -13,7 +13,8 @@ def p_vars_a(p):
              | vars_b COLON tipo SEMICOLON'''
 
 def p_vars_b(p):
-  ''' vars_b : id | id COMMA vars_a'''
+  ''' vars_b : ID 
+             | ID COMMA vars_b'''
 
 def p_tipo(p):
   ''' tipo : INT_TYPE
@@ -24,22 +25,31 @@ def p_bloque(p):
              | LEFTKEY RIGHTKEY'''
 
 def p_bloque_a(p):
-  ''' bloque_a : estatuto | estatuto estatuto'''
+  ''' bloque_a : estatuto 
+               | estatuto bloque_a'''
 
 def p_estatuto(p):
-  ''' estatuto: asignacion | condicion | escritura '''
+  ''' estatuto : asignacion 
+               | condicion
+               | escritura '''
 
 def p_asignacion(p):
   ''' asignacion : ID EQUALS expresion SEMICOLON'''
+
+def p_condicion(p):
+  ''' condicion : IF LEFTPAR expresion RIGHTPAR bloque SEMICOLON
+                | IF LEFTPAR expresion RIGHTPAR bloque ELSE bloque SEMICOLON'''
 
 def p_escritura(p):
   ''' escritura : PRINT LEFTPAR escritura_a RIGHTPAR SEMICOLON'''
 
 def p_escritura_a(p):
-  ''' escritura_a : escritura_b | escritura b COMMA escritura_b'''
+  ''' escritura_a : escritura_b 
+                  | escritura_b COMMA escritura_a'''
 
 def p_escritura_b(p):
-  ''' escritura_b : STRING | expresion'''
+  ''' escritura_b : STRING 
+                  | expresion'''
 
 def p_expresion(p):
   ''' expresion : exp LESS exp
@@ -48,8 +58,8 @@ def p_expresion(p):
                 | exp'''
 
 def p_exp(p):
-  ''' exp : termino PLUS termino
-          | termino MINUS termino
+  ''' exp : termino PLUS exp
+          | termino MINUS exp
           | termino'''
 
 def p_termino(p):
@@ -64,10 +74,13 @@ def p_factor(p):
              | var_cte'''
 
 def p_var_cte(p):
-  ''' var_cte : ID | INT | STRING | FLOAT'''
+  ''' var_cte : ID 
+              | INT 
+              | STRING 
+              | FLOAT'''
 
 def p_error(p):
     print(f"Syntax error at {p.value!r}")
     exit()
 
-yacc.yacc()
+parser = yacc.yacc(debug=True)
