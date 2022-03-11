@@ -6,7 +6,7 @@ tokens = (
   'FLOAT', 'FLOAT_TYPE', 'LEFTKEY', 
   'RIGHTKEY', 'EQUALS', 'IF', 'ELSE',
   'PRINT', 'LEFTPAR', 'RIGHTPAR',
-  'STRING', 'STRING_TYPE', 'TERM', 
+  'STRING', 'TERM', 
   'PLUS', 'MINUS', 'DIV', 'MULT',
   'LESS', 'EXP', 'MORE', 'NOT',
 )
@@ -14,7 +14,6 @@ tokens = (
 reserved = {
   'int': 'INT_TYPE',
   'float': 'FLOAT_TYPE',
-  'string': 'STRING_TYPE',
   'if': 'IF',
   'else': 'ELSE',
   'var': 'VAR',
