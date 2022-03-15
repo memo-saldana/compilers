@@ -1,5 +1,13 @@
 from sly import Lexer
 
+  # tokens = { PROGRAM, ID, SEMICOLON, VAR,
+  #           COMMA, COLON, INT, INT_TYPE, 
+  #           FLOAT, FLOAT_TYPE, LEFTKEY, 
+  #           RIGHTKEY, EQUALS, IF, ELSE,
+  #           PRINT, LEFTPAR, RIGHTPAR,
+  #           STRING, LESS, MORE, NOT,
+  #           PLUS, MINUS, DIV, MULT }
+
 class LittleDuckLexer(Lexer):
   tokens = {
       'PROGRAM', 'ID', 'SEMICOLON', 'VAR',
@@ -14,24 +22,22 @@ class LittleDuckLexer(Lexer):
   
 
   PROGRAM = r'program'
-  ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
-  SEMICOLON = r';'
+  PRINT = r'print'
+  FLOAT_TYPE = r'float'
+  ELSE = r'else'
+  INT_TYPE = r'int'
   VAR = r'var'
+  IF = r'if'
+  SEMICOLON = r';'
   COMMA = r','
   COLON = r':'
   INT = r'\d+'
-  INT_TYPE = r'int'
   FLOAT = r'\d+\.\d+'
-  FLOAT_TYPE = r'float'
   LEFTKEY = r'{'
   RIGHTKEY = r'}'
   EQUALS = r'='
-  IF = r'if'
-  ELSE = r'else'
-  PRINT = r'print'
   LEFTPAR = r'\('
   RIGHTPAR = r'\)'
-  STRING = r'\"[a-zA-Z_][a-zA-Z0-9_]*\"'
   LESS = r'\<'
   MORE = r'\>'
   NOT = r'\<\>'
@@ -39,6 +45,8 @@ class LittleDuckLexer(Lexer):
   MINUS = r'-'
   DIV = r'/'
   MULT = r'\*'
+  STRING = r'\"[a-zA-Z_][a-zA-Z0-9_]*\"'
+  ID = r'[a-zA-Z_][a-zA-Z0-9_]*'
 
   ignore_newline = r'\n+'
 

@@ -8,8 +8,12 @@ def test():
   f = open('test.ld')
   s = f.read()
   f.close()
+  tokens = lexer.tokenize(s)
+  
+  for tok in tokens:
+    print('type=%r, value=%r' % (tok.type, tok.value))
 
-  parser.parse(lexer.tokenize(s))
+  parser.parse(tokens)
 
   print('Code is okay.')
 

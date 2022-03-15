@@ -3,7 +3,7 @@ from ld_lex import LittleDuckLexer
 
 class LittleDuckParser(Parser):
   tokens = LittleDuckLexer.tokens
-
+  debugfile = 'parser.out'
   @_('PROGRAM ID SEMICOLON vars bloque', 'PROGRAM ID SEMICOLON bloque')
   def programa(self, p):
     pass
@@ -12,7 +12,7 @@ class LittleDuckParser(Parser):
   def vars(self, p):
     pass
 
-  @_('vars_b COLON tipo SEMICOLON vars_a', 'vars_b tipo SEMICOLON')
+  @_('vars_b COLON tipo SEMICOLON vars_a', 'vars_b COLON tipo SEMICOLON')
   def vars_a(self, p):
     pass
   
